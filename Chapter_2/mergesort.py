@@ -1,7 +1,4 @@
 import sys
-a = [2,4,6,8,10,12,14]
-b = [1,3,5]
-
 
 def merge(A,p,q,r):
 	L = A[p:q+1]
@@ -19,43 +16,58 @@ def merge(A,p,q,r):
 			i += 1
 		else:
 			A[k] = R[j]
-			j += 1
-		
-
-def merge_sort(A,p,r):
-	if p<r:
-		q = (p+r)/2
-		merge_sort(A,p,q)
-		merge_sort(A,q+1,r)
-		merge(A,p,q,r)
+			j += 1	
 
 '''
-def merge(left,right):
-	merged = []
-	i, j = 0, 0
-	left_len, right_len = len(left), len(right)
-	while i < left_len and j < right_len:
-
-		if left[i] <= right[j]:
-			merged.append(left[i])
+def merge(A,p,q,r):
+	L = A[p:q+1]
+	R = A[q+1:r+1]
+	i = 0
+	j = 0
+	k = p
+	while i < len(L) and j < len(R):
+		if L[i] <= R[j]:
+			A[k] = L[i]
 			i += 1
 		else:
-			merged.append(right[j])
+			A[k] = R[j]
 			j += 1
-	merged.extend(left[i:])
-	merged.extend(right[j:])
+		k =+1
+'''
+
+def merge_sort(A, p, r):
+	if p<r:
+		q = (p+r) / 2
+		merge_sort(A, p, q)
+		merge_sort(A, q+1, r)
+		merge(A, p, q, r)
+
+
+def merged(L,R):
+	merged = []
+	i, j = 0, 0
+	L_len, R_len = len(L), len(R)
+	while i < L_len and j < R_len:
+		if L[i] <= R[j]:
+			merged.append(L[i])
+			i += 1
+		else:
+			merged.append(R[j])
+			j += 1
+	merged.extend(L[i:])
+	merged.extend(R[j:])
 	return merged
 
 
-def merge_sort(lst):
+def merge_sorted(lst):
 	if len(lst) <= 1:
 		return lst
 
 	middle = len(lst) // 2
-	left = merge_sort(lst[:middle])
-	right = merge_sort(lst[middle:])
-	return merge(left, right)
-'''
+	L = merge_sorted(lst[:middle])
+	R = merge_sorted(lst[middle:])
+	return merged(L, R)
 
-merge_sort(a,0,len(a)-1)
-print a
+
+res = merge_sorted(lst)
+print res
